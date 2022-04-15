@@ -27,8 +27,13 @@ const Layout = () => (
       style={{ backgroundColor: "#fff" }}
     >
       <Toolbar>
-        <Typography variant="h6" noWrap component="div">
-          AGENDAMENTO DE VACINAÇÕES
+        <Typography
+          variant="h6"
+          noWrap
+          component="div"
+          style={{ color: "black" }}
+        >
+          Schedule for vaccination
         </Typography>
       </Toolbar>
     </AppBar>
