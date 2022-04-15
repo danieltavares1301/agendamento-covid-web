@@ -51,7 +51,7 @@ const Layout = () => (
       >
         <Toolbar />
         <List>
-          {["Home", "Pacientes"].map((item, index) => (
+          {["Home", "Schedules"].map((item, index) => (
             <ListItem button key={index}>
               <ListItemText primary={item} />
             </ListItem>
