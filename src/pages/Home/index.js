@@ -5,6 +5,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import axios from "axios";
 import BirthDate from "../../components/BirthDate";
 import AppointmentDate from "../../components/AppointmentDate";
+import NameField from "../../components/NameField";
 
 const Home = () => {
   const list = [0, 1, 2, 3, 4, 5, 6, 7, 19, 20, 21, 22, 23];
@@ -58,11 +59,7 @@ const Home = () => {
       >
         {({ setFieldValue, values }) => (
           <Form>
-            <div>
-              <label htmlFor="name">Nome</label>
-              <Field id="name" name="name" type="text" />
-              <ErrorMessage component="div" name="name" />
-            </div>
+            <NameField />
             <AppointmentDate
               value={values.date}
               list={list}
