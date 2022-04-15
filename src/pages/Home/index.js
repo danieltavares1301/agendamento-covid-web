@@ -38,18 +38,20 @@ const Home = () => {
       .catch((error) => console.erro(error));
   };
 
-  useEffect(() => {
-    axios
-      .get("http://localhost:4000/api/users")
-      .then((res) => setData(res.data))
-      .catch((error) => console.error(error));
-    console.log(data);
-  }, []);
+  // shows created data
+  // useEffect(() => {
+  //   axios
+  //     .get("http://localhost:4000/api/users")
+  //     .then((res) => setData(res.data))
+  //     .catch((error) => console.error(error));
+  //   console.log(data);
+  // }, []);
 
   //var dataH = new Date(`${data[15] ? data[15].date : ""}`);
   //var dataFormatada = dataH.getHours();
   //dsadasd
   //console.log(dataFormatada);
+
   return (
     <div>
       <h2>Vaccination form</h2>
