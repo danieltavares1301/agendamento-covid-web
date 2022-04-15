@@ -4,9 +4,11 @@ import DatePicker from "react-datepicker";
 import { Field } from "formik";
 
 const BirthDate = ({ name, value, onChange }) => {
-  let years = new Array(122);
+  let years = new Array(116);
 
-  for (let i = 1900; i < 2017; i++) {
+  // birth date range between 1906 and 2018 as the oldest person in the country
+  // is 116 years old and the minimum vaccination age is 5 years.
+  for (let i = 2019; i >= 1907; i--) {
     years[i] = getYear(new Date(i.toString()));
   }
 
@@ -26,7 +28,7 @@ const BirthDate = ({ name, value, onChange }) => {
   ];
   return (
     <div>
-      <label htmlFor="birthDate">birthDate</label>
+      <label htmlFor="birthDate">Birth date</label>
       <Field name="birthDate" id="birthDate">
         {() => (
           <DatePicker

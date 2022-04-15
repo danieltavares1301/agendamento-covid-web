@@ -1,21 +1,21 @@
-import DatePicker, { registerLocale } from "react-datepicker";
-import BR from "date-fns/locale/pt-BR";
+import DatePicker from "react-datepicker";
 import setHours from "date-fns/setHours";
 import setMinutes from "date-fns/setMinutes";
 import { Field } from "formik";
+//import { registerLocale } from "react-datepicker";
+// import BR from "date-fns/locale/pt-BR";
 
 const AppointmentDate = ({ value, onchange, list }) => {
-  registerLocale("BR", BR);
+  //registerLocale("BR", BR);
   return (
     <div>
-      <label htmlFor="date">date</label>
-      <Field name="date" id="date" type="text">
+      <label htmlFor="appointmentDate">Appointment</label>
+      <Field name="appointmentDate" id="appointmentDate" type="text">
         {() => (
           <DatePicker
             showTimeSelect
-            locale="BR"
             timeIntervals={60}
-            name="date"
+            name="appointmentDate"
             selected={value}
             onChange={onchange}
             excludeTimes={list.map((item) =>
