@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import "react-datepicker/dist/react-datepicker.css";
@@ -11,7 +11,7 @@ const Home = () => {
   // unavailable times for vaccination (vaccination works between 8 am and 8 pm as in many health posts in the country)
   const list = [0, 1, 2, 3, 4, 5, 6, 7, 19, 20, 21, 22, 23];
 
-  const [data, setData] = useState([]); // data that has already been saved
+  //const [data, setData] = useState([]); // data that has already been saved
   const [errorDate, setErrorDate] = useState(false);
 
   // data validation schema
