@@ -38,7 +38,7 @@ const Home = () => {
       .then((res) => setData(res.data))
       .catch((error) => console.error(error));
     console.log(data);
-  }, [data]);
+  }, []);
 
   //var dataH = new Date(`${data[15] ? data[15].date : ""}`);
   //var dataFormatada = dataH.getHours();
