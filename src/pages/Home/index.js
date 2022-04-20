@@ -20,8 +20,12 @@ const Home = () => {
     birthDate: Yup.date().required(
       "O campo de data de nascimento precisa ser preenchido!"
     ),
-    appointmentTime: Yup.number().required("O campo precisa ser preenchido!"),
-    appointmentDate: Yup.date().required("appointmentDate is required"),
+    appointmentTime: Yup.number().required(
+      "O campo de horário de agendamento precisa ser preenchido!"
+    ),
+    appointmentDate: Yup.date().required(
+      "O campo de data de agendamento precisa ser preenchido!"
+    ),
     isFinished: Yup.boolean().default(false),
     description: Yup.string(),
   });
@@ -35,7 +39,7 @@ const Home = () => {
 
   // quando a state data for alterada, ela é colocada novamente no localStorage
   useEffect(() => {
-    localStorage.setItem("dados", JSON.stringify(data));
+    localStorage.setItem("data", JSON.stringify(data));
   }, [data]);
 
   const onSubmit = async (values) => {
@@ -68,7 +72,7 @@ const Home = () => {
               `agendamento do paciente ${values.name} foi realizado com sucesso!`
             )
           )
-          .catch((error) => console.erro(error.message));
+          .catch(() => alert("Um erro inesperado ocorreu!"));
       } else {
         alert("HORÁRIO NÃO possui vagas disponíveis!");
       }
