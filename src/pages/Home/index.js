@@ -4,6 +4,7 @@ import * as Yup from "yup";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import axios from "axios";
+import DateField from "../../components/DateField";
 
 //import BR from "date-fns/locale/pt-BR";
 //import { registerLocale } from "react-datepicker";
@@ -20,8 +21,12 @@ const Home = () => {
     birthDate: Yup.date().required(
       "O campo de data de nascimento precisa ser preenchido!"
     ),
-    appointmentTime: Yup.number().required("O campo precisa ser preenchido!"),
-    appointmentDate: Yup.date().required("appointmentDate is required"),
+    appointmentTime: Yup.number().required(
+      "O campo de horário de agendamento precisa ser preenchido!"
+    ),
+    appointmentDate: Yup.date().required(
+      "O campo de data de agendamento precisa ser preenchido!"
+    ),
     isFinished: Yup.boolean().default(false),
     description: Yup.string(),
   });
@@ -35,7 +40,7 @@ const Home = () => {
 
   // quando a state data for alterada, ela é colocada novamente no localStorage
   useEffect(() => {
-    localStorage.setItem("dados", JSON.stringify(data));
+    localStorage.setItem("data", JSON.stringify(data));
   }, [data]);
 
   const onSubmit = async (values) => {
@@ -68,7 +73,7 @@ const Home = () => {
               `agendamento do paciente ${values.name} foi realizado com sucesso!`
             )
           )
-          .catch((error) => console.erro(error.message));
+          .catch(() => alert("Um erro inesperado ocorreu!"));
       } else {
         alert("HORÁRIO NÃO possui vagas disponíveis!");
       }
@@ -99,36 +104,22 @@ const Home = () => {
               <Field id="name" name="name" type="text" />
               <ErrorMessage component="div" name="name" />
             </div>
-            <label htmlFor="birthDate">Data de nascimento</label>
+            <DateField
+              labelName="Data de nascimento"
+              name="birthDate"
+              onChange={(birthDate) => setFieldValue("birthDate", birthDate)}
+              value={values.birthDate}
+            />
 
-            <Field id="birthDate" name="birthDate">
-              {() => (
-                <DatePicker
-                  selected={values.birthDate}
-                  onChange={(birthDate) =>
-                    setFieldValue("birthDate", birthDate)
-                  }
-                  name="birthDate"
-                />
-              )}
-            </Field>
+            <DateField
+              labelName="Data de agendamento"
+              name="appointmentDate"
+              onChange={(appointmentDate) =>
+                setFieldValue("appointmentDate", appointmentDate)
+              }
+              value={values.appointmentDate}
+            />
 
-            <br />
-
-            <label htmlFor="appointmentDate">data de agendamento</label>
-
-            <Field id="appointmentDate" name="appointmentDate">
-              {() => (
-                <DatePicker
-                  selected={values.appointmentDate}
-                  onChange={(appointmentDate) =>
-                    setFieldValue("appointmentDate", appointmentDate)
-                  }
-                  name="appointmentDate"
-                />
-              )}
-            </Field>
-            <br />
             <label htmlFor="appointmentTime">horário de agendamento</label>
             <Field
               as="select"
