@@ -4,6 +4,7 @@ import * as Yup from "yup";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import axios from "axios";
+import DateField from "../../components/DateField";
 
 //import BR from "date-fns/locale/pt-BR";
 //import { registerLocale } from "react-datepicker";
@@ -103,36 +104,22 @@ const Home = () => {
               <Field id="name" name="name" type="text" />
               <ErrorMessage component="div" name="name" />
             </div>
-            <label htmlFor="birthDate">Data de nascimento</label>
+            <DateField
+              labelName="Data de nascimento"
+              name="birthDate"
+              onChange={(birthDate) => setFieldValue("birthDate", birthDate)}
+              value={values.birthDate}
+            />
 
-            <Field id="birthDate" name="birthDate">
-              {() => (
-                <DatePicker
-                  selected={values.birthDate}
-                  onChange={(birthDate) =>
-                    setFieldValue("birthDate", birthDate)
-                  }
-                  name="birthDate"
-                />
-              )}
-            </Field>
+            <DateField
+              labelName="Data de agendamento"
+              name="appointmentDate"
+              onChange={(appointmentDate) =>
+                setFieldValue("appointmentDate", appointmentDate)
+              }
+              value={values.appointmentDate}
+            />
 
-            <br />
-
-            <label htmlFor="appointmentDate">data de agendamento</label>
-
-            <Field id="appointmentDate" name="appointmentDate">
-              {() => (
-                <DatePicker
-                  selected={values.appointmentDate}
-                  onChange={(appointmentDate) =>
-                    setFieldValue("appointmentDate", appointmentDate)
-                  }
-                  name="appointmentDate"
-                />
-              )}
-            </Field>
-            <br />
             <label htmlFor="appointmentTime">horário de agendamento</label>
             <Field
               as="select"

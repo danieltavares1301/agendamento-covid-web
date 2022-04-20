@@ -1,11 +1,11 @@
 import { Field, ErrorMessage } from "formik";
 
-const NameField = () => (
+const NameField = ({ labelName, name, id }) => (
   <div>
-    <label htmlFor="name">Name</label>
+    <label htmlFor={name}>{labelName}</label>
     <br />
-    <Field id="name" name="name" type="text" />
-    <ErrorMessage component="div" name="name" />
+    <Field id={id} name={name} type="text" />
+    <ErrorMessage component="div" name={name} />
   </div>
 );
 
