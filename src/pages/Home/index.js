@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import "react-datepicker/dist/react-datepicker.css";
 import axios from "axios";
 import DateField from "../../components/DateField";
+import { AppContext } from "../../AppContextProvider";
 
 const Home = () => {
-  const [data, setData] = useState([]);
+  const [data, setData, loadingData] = useContext(AppContext);
 
   const schema = Yup.object().shape({
     name: Yup.string().required("O campo de nome precisa ser preenchido!"),
@@ -22,18 +23,6 @@ const Home = () => {
     isFinished: Yup.boolean().default(false),
     description: Yup.string(),
   });
-
-  // pega dados do BD ao entrar na aplicação
-  useEffect(() => {
-    axios
-      .get("http://localhost:4000/schedule")
-      .then((res) => setData(res.data));
-  }, []);
-
-  // quando a state data for alterada, ela é colocada novamente no localStorage
-  useEffect(() => {
-    localStorage.setItem("data", JSON.stringify(data));
-  }, [data]);
 
   const onSubmit = async (values) => {
     //pega quantidade de vezes que aquele dia foi cadastrado
@@ -60,11 +49,12 @@ const Home = () => {
             appointmentTime: values.appointmentTime,
           })
           .then((response) => setData([...data, response.data.schedule])) //.schedule pois o backend também retorna uma messagem dentro de data
-          .then(() =>
+          .then(() => {
             alert(
               `agendamento do paciente ${values.name} foi realizado com sucesso!`
-            )
-          )
+            );
+            return loadingData();
+          })
           .catch(() => alert("Um erro inesperado ocorreu!"));
       } else {
         alert("HORÁRIO NÃO possui vagas disponíveis!");
