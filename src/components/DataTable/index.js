@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState } from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -6,17 +6,21 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { Button } from "@mui/material";
+import { Button, TextField } from "@mui/material";
 
 const DataTable = ({ list, appointmentDate, data, setData }) => {
-  // atualiza valor do status
-  const updateValues = (id) => {
+  // state para adicionar descrição
+  const [description, setDescription] = useState();
+
+  // atualiza valor do status e da descrição
+  const updateValues = (id, description) => {
     const updateStatus = data
       .filter((value) => value._id === id && value.isFinished === false) // pega apenas o objeto que for igual o id passado
       .map((item) => {
-        // muda valor do status para true, e os outros itens do obj continuam os mesmo
+        // muda valor do status para true e nova descrição, e os outros itens do obj continuam os mesmo
         if (item._id === id) {
           item.isFinished = true;
+          item.description = description;
         }
         return item;
       });
@@ -24,11 +28,13 @@ const DataTable = ({ list, appointmentDate, data, setData }) => {
     // adiciona itens antigos diferentes do que foi alterado, e também adiciona o alterado.
     setData([data.filter((value) => value._id !== id), ...updateStatus].flat());
     // altera data no localStorage
-    return localStorage.setItem("data", JSON.stringify(data));
+    localStorage.setItem("data", JSON.stringify(data));
+    return window.location.reload(true);
   };
   return (
     <>
       <h3>{appointmentDate}</h3>
+
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
           <TableHead>
@@ -59,19 +65,27 @@ const DataTable = ({ list, appointmentDate, data, setData }) => {
                 </TableCell>
                 <TableCell align="center" component="th" scope="row">
                   {row.isFinished === false ? (
-                    <Button onClick={() => updateValues(row._id)}>
+                    <Button onClick={() => updateValues(row._id, description)}>
                       Atender Paciente
                     </Button>
                   ) : (
                     "Paciente Atendido"
                   )}
                 </TableCell>
-                {row.description === "" ? (
-                  <TableCell component="th" align="center" scope="row">
-                    sem descrição
+                {row.isFinished === false ? (
+                  <TableCell align="center" component="th" scope="row">
+                    <TextField
+                      id="outlined-multiline-flexible"
+                      placeholder="Adicione uma descrição antes de clicar em ATENDER PACIENTE"
+                      multiline
+                      maxRows={4}
+                      onChange={(event) => setDescription(event.target.value)}
+                    />
                   </TableCell>
                 ) : (
-                  "Sem descrição"
+                  <TableCell align="center" component="th" scope="row">
+                    {row.description}
+                  </TableCell>
                 )}
               </TableRow>
             ))}
