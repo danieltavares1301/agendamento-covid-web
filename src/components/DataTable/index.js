@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -7,8 +7,10 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { Button, TextField } from "@mui/material";
+import { AppContext } from "../../AppContextProvider";
 
-const DataTable = ({ list, appointmentDate, data, setData }) => {
+const DataTable = ({ list, appointmentDate }) => {
+  const [data, setData] = useContext(AppContext);
   // state para adicionar descrição
   const [description, setDescription] = useState();
 
@@ -29,6 +31,7 @@ const DataTable = ({ list, appointmentDate, data, setData }) => {
     setData([data.filter((value) => value._id !== id), ...updateStatus].flat());
     // altera data no localStorage
     localStorage.setItem("data", JSON.stringify(data));
+    // refresh para reorganização de dados
     return window.location.reload(true);
   };
   return (

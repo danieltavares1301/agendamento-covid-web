@@ -1,11 +1,9 @@
-import { useEffect, useState } from "react";
+import { useContext } from "react";
 import DataTable from "../../components/DataTable";
-const Schedules = () => {
-  const [data, setData] = useState([]);
+import { AppContext } from "../../AppContextProvider";
 
-  useEffect(() => {
-    setData(JSON.parse(localStorage.getItem("data")));
-  }, []);
+const Schedules = () => {
+  const [data] = useContext(AppContext);
 
   // objeto que terá a data como chave e todos os agendados marcados nela como valor (array de objetos)
   const inOrder = data.reduce((object, item) => {
@@ -44,12 +42,7 @@ const Schedules = () => {
         // retorna uma tabela para cada data (valores da lista de datas em ordem)
         // cujas linhas da tabela são as listas que constituem as os valores da lista de datas em ordem
         return (
-          <DataTable
-            list={item}
-            appointmentDate={datesValuesInOrder[index]}
-            data={data}
-            setData={setData}
-          />
+          <DataTable list={item} appointmentDate={datesValuesInOrder[index]} />
         );
       })}
     </div>
