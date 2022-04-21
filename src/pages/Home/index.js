@@ -1,17 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import axios from "axios";
 import DateField from "../../components/DateField";
-
-//import BR from "date-fns/locale/pt-BR";
-//import { registerLocale } from "react-datepicker";
-// import setHours from "date-fns/setHours";
-// import setMinutes from "date-fns/setMinutes";
-
-//registerLocale("BR", BR);
 
 const Home = () => {
   const [data, setData] = useState([]);
