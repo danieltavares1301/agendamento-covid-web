@@ -7,32 +7,41 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { Button, TextField } from "@mui/material";
+import api from "../../services/api";
 import { AppContext } from "../../AppContextProvider";
 
 const DataTable = ({ list, appointmentDate }) => {
-  const [data, setData] = useContext(AppContext);
-  // state para adicionar descrição
+  const [, loadingData] = useContext(AppContext);
   const [description, setDescription] = useState();
 
   // atualiza valor do status e da descrição
-  const updateValues = (id, description) => {
-    const updateStatus = data
-      .filter((value) => value._id === id && value.isFinished === false) // pega apenas o objeto que for igual o id passado
-      .map((item) => {
-        // muda valor do status para true e nova descrição, e os outros itens do obj continuam os mesmo
-        if (item._id === id) {
-          item.isFinished = true;
-          item.description = description;
-        }
-        return item;
-      });
+  const updateValues = async (id, description) => {
+    await api
+      .put(`/serviceFinished/${id}`, {
+        description: description,
+      })
+      .then(() => loadingData())
+      .catch(() => alert("Um erro inesperado ocorreu!"));
 
-    // adiciona itens antigos diferentes do que foi alterado, e também adiciona o alterado.
-    setData([data.filter((value) => value._id !== id), ...updateStatus].flat());
-    // altera data no localStorage
-    localStorage.setItem("data", JSON.stringify(data));
-    // refresh para reorganização de dados
     return window.location.reload(true);
+
+    // se não existisse banco de dados, seria mudado dessa forma:
+    //
+    //   const updateStatus = data
+    //     .filter((value) => value._id === id && value.isFinished === false) // pega apenas o objeto que for igual o id passado
+    //     .map((item) => {
+    //     // muda valor do status para true e nova descrição, e os outros itens do obj continuam os mesmo
+    //        if (item._id === id) {
+    //          item.isFinished = true;
+    //          item.description = description;
+    //        }
+    //        return item;
+    //      });
+    // // adiciona itens antigos diferentes do que foi alterado, e também adiciona o alterado.
+    // setData([data.filter((value) => value._id !== id), ...updateStatus].flat());
+    // // altera data no localStorage
+    // return localStorage.setItem("data", JSON.stringify(data));
+    // // refresh para reorganização de dados
   };
   return (
     <>

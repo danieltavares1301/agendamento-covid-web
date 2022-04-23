@@ -2,12 +2,14 @@ import React, { useContext } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import "react-datepicker/dist/react-datepicker.css";
-import axios from "axios";
 import DateField from "../../components/DateField";
 import { AppContext } from "../../AppContextProvider";
+import api from "../../services/api";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
-  const [data, setData, loadingData] = useContext(AppContext);
+  const [data, loadingData] = useContext(AppContext);
+  const navigate = useNavigate();
 
   const schema = Yup.object().shape({
     name: Yup.string().required("O campo de nome precisa ser preenchido!"),
@@ -41,19 +43,19 @@ const Home = () => {
 
     if (dias < 20) {
       if (horas < 2) {
-        return await axios
-          .post("http://localhost:4000/schedule", {
+        return await api
+          .post("/", {
             name: values.name,
             birthDate: values.birthDate,
             appointmentDate: values.appointmentDate,
             appointmentTime: values.appointmentTime,
           })
-          .then((response) => setData([...data, response.data.schedule])) //.schedule pois o backend também retorna uma messagem dentro de data
           .then(() => {
+            loadingData();
             alert(
               `agendamento do paciente ${values.name} foi realizado com sucesso!`
             );
-            return loadingData();
+            return navigate("/schedules");
           })
           .catch(() => alert("Um erro inesperado ocorreu!"));
       } else {
