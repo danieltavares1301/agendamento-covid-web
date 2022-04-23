@@ -4,6 +4,13 @@ import { AppContext } from "../../AppContextProvider";
 
 const Schedules = () => {
   const [data] = useContext(AppContext);
+  const dataVerify = JSON.parse(localStorage.getItem("data"));
+
+  // recarrega a página para que a tabela pegue os dados atualizados
+  // obs: não funcionou com useEffect
+  if (data.length !== dataVerify.length) {
+    window.location.reload(true);
+  }
 
   // objeto que terá a data como chave e todos os agendados marcados nela como valor (array de objetos)
   const inOrder = data.reduce((object, item) => {
