@@ -1,14 +1,22 @@
-import React from "react";
-import DatePicker from "react-datepicker";
-import { Field } from "formik";
-import "react-datepicker/dist/react-datepicker.css";
+import React from 'react';
+import DatePicker from 'react-datepicker';
+import { ErrorMessage, Field } from 'formik';
+import 'react-datepicker/dist/react-datepicker.css';
 
-const DateField = ({ name, labelName, value, onChange }) => (
-  <div>
-    <label htmlFor={name}>{labelName}</label>
+const DateField = ({ name, value, onChange, onBlur }) => (
+  <div style={{ marginTop: 2, marginBottom: 10 }}>
     <Field id={name} name={name}>
-      {() => <DatePicker selected={value} onChange={onChange} name={name} />}
+      {() => (
+        <DatePicker
+          selected={value}
+          onChange={onChange}
+          name={name}
+          dateFormat="dd/MM/yyyy"
+          onBlur={onBlur}
+        />
+      )}
     </Field>
+    <ErrorMessage component="div" name={name} />
   </div>
 );
 
