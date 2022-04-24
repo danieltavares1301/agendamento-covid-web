@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import DataTable from '../../components/DataTable';
-import { AppContext } from '../../AppContextProvider';
+import { AppContext } from '../../contexts/AppContextProvider';
 
 const Schedules = () => {
   const [data] = useContext(AppContext);
@@ -40,17 +40,24 @@ const Schedules = () => {
 
   return (
     <div>
-      {valuesInOrder.map((item, index) => {
-        // pega apenas as chaves do objeto, ou seja, as datas. Depois, formata as datas
-        const datesValuesInOrder = Object.keys(inOrder).map(date =>
-          dateFormated(date),
-        );
-        // retorna uma tabela para cada data (valores da lista de datas em ordem)
-        // cujas linhas da tabela são as listas que constituem as os valores da lista de datas em ordem
-        return (
-          <DataTable list={item} appointmentDate={datesValuesInOrder[index]} />
-        );
-      })}
+      {data.length > 0 ? (
+        valuesInOrder.map((item, index) => {
+          // pega apenas as chaves do objeto, ou seja, as datas. Depois, formata as datas
+          const datesValuesInOrder = Object.keys(inOrder).map(date =>
+            dateFormated(date),
+          );
+          // retorna uma tabela para cada data (valores da lista de datas em ordem)
+          // cujas linhas da tabela são as listas que constituem as os valores da lista de datas em ordem
+          return (
+            <DataTable
+              list={item}
+              appointmentDate={datesValuesInOrder[index]}
+            />
+          );
+        })
+      ) : (
+        <h1>Ainda não existe nenhum registro de agendamento!</h1>
+      )}
     </div>
   );
 };
