@@ -36,7 +36,7 @@ const Layout = () => {
             component="div"
             style={{ color: 'black' }}
           >
-            Schedule for vaccination
+            Agendamento de vacinações
           </Typography>
         </Toolbar>
       </AppBar>
@@ -59,7 +59,7 @@ const Layout = () => {
             </ListItem>
             <ListItem button>
               <ListItemText
-                primary="Schedules"
+                primary="Agendamentos"
                 onClick={() => navigate('/Schedules')}
               />
             </ListItem>
