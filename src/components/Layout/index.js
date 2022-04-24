@@ -55,7 +55,10 @@ const Layout = () => {
           <Toolbar />
           <List>
             <ListItem button>
-              <ListItemText primary="Home" onClick={() => navigate('/')} />
+              <ListItemText
+                primary="Formulário"
+                onClick={() => navigate('/')}
+              />
             </ListItem>
             <ListItem button>
               <ListItemText
