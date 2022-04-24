@@ -49,9 +49,16 @@ const DataTable = ({ list, appointmentDate }) => {
                   '&:last-child td, &:last-child th': { border: 0 },
                 }}
               >
-                <TableCell align="center" component="th" scope="row">
-                  {row.appointmentTime}
-                </TableCell>
+                {row.appointmentTime < 10 ? (
+                  <TableCell align="center" component="th" scope="row">
+                    0{row.appointmentTime}:00
+                  </TableCell>
+                ) : (
+                  <TableCell align="center" component="th" scope="row">
+                    {row.appointmentTime}:00
+                  </TableCell>
+                )}
+
                 <TableCell component="th" align="center" scope="row">
                   {row.name}
                 </TableCell>
