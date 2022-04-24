@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import DateField from '../../components/DateField';
 import NameField from '../../components/NameField';
@@ -11,8 +11,6 @@ import SelectionField from '../../components/SelectionField';
 const Home = () => {
   const navigate = useNavigate();
   const [data, loadingData] = useContext(AppContext);
-  const [errorAppointmentDate, setErrorAppointmentDate] = useState();
-  const [errorBirthDate, setErrorBirthDate] = useState();
 
   // horários de agendamento
   const timesList = [
