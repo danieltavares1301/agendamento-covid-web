@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Formik, Form, Field } from 'formik';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import DateField from '../../components/DateField';
 import NameField from '../../components/NameField';
@@ -62,13 +62,13 @@ const Home = () => {
 
   const schema = Yup.object().shape({
     name: Yup.string().required('O campo de nome precisa ser preenchido!'),
-    birthDate: Yup.date().required(
+    birthDate: Yup.date('Selecione uma data válida!').required(
       'O campo de data de nascimento precisa ser preenchido!',
     ),
     appointmentTime: Yup.number().required(
       'O campo de horário de agendamento precisa ser preenchido!',
     ),
-    appointmentDate: Yup.date().required(
+    appointmentDate: Yup.date('Selecione uma data válida!').required(
       'O campo de data de agendamento precisa ser preenchido!',
     ),
     isFinished: Yup.boolean().default(false),
@@ -151,7 +151,6 @@ const Home = () => {
                   : null
               }
             />
-            {values.birthDate ? null : <div>{errorBirthDate}</div>}
 
             <label htmlFor="appointmentDate">Data de agendamento</label>
             <br />
@@ -170,7 +169,6 @@ const Home = () => {
                     )
               }
             />
-            {values.appointmentDate ? null : <div>{errorAppointmentDate}</div>}
 
             <label htmlFor="appointmentTime">horário de agendamento</label>
             <Field
@@ -185,6 +183,8 @@ const Home = () => {
                 </option>
               ))}
             </Field>
+            <ErrorMessage component="div" name="appointmentTime" />
+
             <br />
             <button type="submit">Cadastrar</button>
           </Form>

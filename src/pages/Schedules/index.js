@@ -17,8 +17,8 @@ const Schedules = () => {
       .filter(value => value.appointmentDate === item.appointmentDate) // pega apenas objetos que tenham a data da chave
       .sort((date1, date2) => {
         // coloca data em ordem
-        const newDate1 = new Date(date1.appointmentDate).toISOString();
-        const newDate2 = new Date(date2.appointmentDate).toISOString();
+        const newDate1 = new Date(date1.appointmentDate).toString();
+        const newDate2 = new Date(date2.appointmentDate).toString();
         return newDate1 - newDate2;
       })
       .sort(
