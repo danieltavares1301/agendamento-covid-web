@@ -143,14 +143,6 @@ const Home = () => {
               name="birthDate"
               onChange={birthDate => setFieldValue('birthDate', birthDate)}
               value={values.birthDate}
-              onBlur={
-                /*ao clicar fora do componente, o valor da data é pego para verificação de horários disponíveis*/
-                values.birthDate === null
-                  ? setErrorBirthDate(
-                      'Data de nascimento precisa ser preenchida!',
-                    )
-                  : null
-              }
             />
 
             <label htmlFor="appointmentDate">Data de agendamento</label>
@@ -163,11 +155,7 @@ const Home = () => {
               value={values.appointmentDate}
               onBlur={
                 /*ao clicar fora do componente, o valor da data é pego para verificação de horários disponíveis*/
-                values.appointmentDate !== null
-                  ? setDateSelected(values.appointmentDate)
-                  : setErrorAppointmentDate(
-                      'Data de agendamento precisa ser preenchida!',
-                    )
+                setDateSelected(values.appointmentDate)
               }
             />
 
