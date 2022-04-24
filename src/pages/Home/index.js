@@ -6,6 +6,7 @@ import NameField from '../../components/NameField';
 import { AppContext } from '../../AppContextProvider';
 import { useNavigate } from 'react-router-dom';
 import api from '../../services/api';
+import SelectionField from '../../components/SelectionField';
 
 const Home = () => {
   const navigate = useNavigate();
@@ -170,20 +171,8 @@ const Home = () => {
               }
             />
 
-            <label htmlFor="appointmentTime">horário de agendamento</label>
-            <Field
-              as="select"
-              name="appointmentTime"
-              id="appointmentTime"
-              type="number"
-            >
-              {timesList.map(item => (
-                <option value={item} key={item}>
-                  {`${item}:00`}
-                </option>
-              ))}
-            </Field>
-            <ErrorMessage component="div" name="appointmentTime" />
+            <label htmlFor="appointmentTime">Horário de agendamento</label>
+            <SelectionField timesList={timesList} name="appointmentTime" />
 
             <br />
             <button type="submit">Cadastrar</button>

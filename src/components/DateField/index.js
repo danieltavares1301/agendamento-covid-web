@@ -4,7 +4,7 @@ import { ErrorMessage, Field } from 'formik';
 import 'react-datepicker/dist/react-datepicker.css';
 
 const DateField = ({ name, value, onChange, onBlur }) => (
-  <>
+  <div style={{ marginTop: 2, marginBottom: 10 }}>
     <Field id={name} name={name}>
       {() => (
         <DatePicker
@@ -17,7 +17,7 @@ const DateField = ({ name, value, onChange, onBlur }) => (
       )}
     </Field>
     <ErrorMessage component="div" name={name} />
-  </>
+  </div>
 );
 
 export default DateField;
