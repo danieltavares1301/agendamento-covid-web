@@ -1,5 +1,5 @@
-import Router from "./Router";
-import AppContextProvider from "./AppContextProvider";
+import Router from './Router';
+import AppContextProvider from './contexts/AppContextProvider';
 
 const App = () => (
   <AppContextProvider>

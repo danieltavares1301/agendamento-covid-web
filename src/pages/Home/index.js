@@ -3,14 +3,14 @@ import { Formik, Form } from 'formik';
 import { validatorSchema } from '../../validators';
 import DateField from '../../components/DateField';
 import NameField from '../../components/NameField';
-import { AppContext } from '../../AppContextProvider';
+import { AppContext } from '../../contexts/AppContextProvider';
 import { useNavigate } from 'react-router-dom';
 import api from '../../services/api';
 import SelectionField from '../../components/SelectionField';
 
 const Home = () => {
   const navigate = useNavigate();
-  const [data, loadingData] = useContext(AppContext);
+  const [data, FetchData] = useContext(AppContext);
 
   // horários de agendamento
   const timesList = [
@@ -85,7 +85,7 @@ const Home = () => {
             appointmentTime: values.appointmentTime,
           })
           .then(() => {
-            loadingData();
+            FetchData();
             alert(
               `agendamento do paciente ${values.name} foi realizado com sucesso!`,
             );

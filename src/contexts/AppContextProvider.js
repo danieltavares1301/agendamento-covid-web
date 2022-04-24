@@ -1,5 +1,5 @@
 import { createContext, useEffect } from 'react';
-import api from './services/api';
+import api from '../services/api';
 
 export const AppContext = createContext(); // criação no app para páginas a escutarem
 
@@ -9,7 +9,7 @@ const AppContextProvider = ({ children }) => {
   const data = JSON.parse(localStorage.getItem('data'));
 
   // pega dados do BD ao entrar na aplicação
-  const loadingData = async () => {
+  const FetchData = async () => {
     try {
       await api.get().then(res => setData(res.data));
     } catch {
@@ -18,11 +18,11 @@ const AppContextProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    loadingData();
+    FetchData();
   }, []);
 
   return (
-    <AppContext.Provider value={[data, loadingData, setData]}>
+    <AppContext.Provider value={[data, FetchData, setData]}>
       {children}
     </AppContext.Provider>
   );

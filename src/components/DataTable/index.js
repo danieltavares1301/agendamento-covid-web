@@ -8,10 +8,10 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Button, TextField } from '@mui/material';
 import api from '../../services/api';
-import { AppContext } from '../../AppContextProvider';
+import { AppContext } from '../../contexts/AppContextProvider';
 
 const DataTable = ({ list, appointmentDate }) => {
-  const [, loadingData] = useContext(AppContext);
+  const [, FetchData] = useContext(AppContext);
   const [description, setDescription] = useState();
 
   // atualiza valor do status e da descrição
@@ -21,7 +21,7 @@ const DataTable = ({ list, appointmentDate }) => {
       .put(`/serviceFinished/${id}`, {
         description: description,
       })
-      .then(() => loadingData())
+      .then(() => FetchData())
       .catch(() => alert('Um erro inesperado ocorreu!'));
 
     return window.location.reload(true);

@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import DataTable from '../../components/DataTable';
-import { AppContext } from '../../AppContextProvider';
+import { AppContext } from '../../contexts/AppContextProvider';
 
 const Schedules = () => {
   const [data] = useContext(AppContext);
