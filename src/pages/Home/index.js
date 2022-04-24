@@ -10,13 +10,16 @@ import api from '../../services/api';
 const Home = () => {
   const navigate = useNavigate();
   const [data, loadingData] = useContext(AppContext);
+  const [errorAppointmentDate, setErrorAppointmentDate] = useState();
+  const [errorBirthDate, setErrorBirthDate] = useState();
+
   // horários de agendamento
   const timesList = [
     0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
     21, 22, 23,
   ];
   // data selecionado
-  const [dateSelected, setDateSelected] = useState(new Date());
+  const [dateSelected, setDateSelected] = useState();
 
   // função para atualizar timeList
   const updateTimeList = () => {
@@ -52,7 +55,6 @@ const Home = () => {
     }
     return timesList;
   };
-
   // atualiza lista de horários toda vez que o usuário escolher uma data
   useEffect(() => {
     updateTimeList();
@@ -140,7 +142,16 @@ const Home = () => {
               name="birthDate"
               onChange={birthDate => setFieldValue('birthDate', birthDate)}
               value={values.birthDate}
+              onBlur={
+                /*ao clicar fora do componente, o valor da data é pego para verificação de horários disponíveis*/
+                values.birthDate === null
+                  ? setErrorBirthDate(
+                      'Data de nascimento precisa ser preenchida!',
+                    )
+                  : null
+              }
             />
+            {values.birthDate ? null : <div>{errorBirthDate}</div>}
 
             <label htmlFor="appointmentDate">Data de agendamento</label>
             <br />
@@ -150,8 +161,16 @@ const Home = () => {
                 setFieldValue('appointmentDate', appointmentDate)
               }
               value={values.appointmentDate}
-              onBlur={setDateSelected(values.appointmentDate)}
+              onBlur={
+                /*ao clicar fora do componente, o valor da data é pego para verificação de horários disponíveis*/
+                values.appointmentDate !== null
+                  ? setDateSelected(values.appointmentDate)
+                  : setErrorAppointmentDate(
+                      'Data de agendamento precisa ser preenchida!',
+                    )
+              }
             />
+            {values.appointmentDate ? null : <div>{errorAppointmentDate}</div>}
 
             <label htmlFor="appointmentTime">horário de agendamento</label>
             <Field
