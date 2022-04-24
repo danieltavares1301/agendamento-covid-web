@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Formik, Form } from 'formik';
-import * as Yup from 'yup';
+import { validatorSchema } from '../../validators';
 import DateField from '../../components/DateField';
 import NameField from '../../components/NameField';
 import { AppContext } from '../../AppContextProvider';
@@ -59,21 +59,6 @@ const Home = () => {
     updateTimeList();
   }, [dateSelected]);
 
-  const schema = Yup.object().shape({
-    name: Yup.string().required('O campo de nome precisa ser preenchido!'),
-    birthDate: Yup.date('Selecione uma data válida!').required(
-      'O campo de data de nascimento precisa ser preenchido!',
-    ),
-    appointmentTime: Yup.number().required(
-      'O campo de horário de agendamento precisa ser preenchido!',
-    ),
-    appointmentDate: Yup.date('Selecione uma data válida!').required(
-      'O campo de data de agendamento precisa ser preenchido!',
-    ),
-    isFinished: Yup.boolean().default(false),
-    description: Yup.string(),
-  });
-
   const onSubmit = async values => {
     //pega quantidade de vezes que aquele dia foi cadastrado
     const dates = data.filter(
@@ -119,7 +104,7 @@ const Home = () => {
     <div>
       <Formik
         onSubmit={onSubmit}
-        validationSchema={schema}
+        validationSchema={validatorSchema}
         initialValues={{
           name: '',
           birthDate: '',
