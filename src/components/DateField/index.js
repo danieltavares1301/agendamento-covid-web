@@ -3,7 +3,7 @@ import DatePicker from 'react-datepicker';
 import { Field } from 'formik';
 import 'react-datepicker/dist/react-datepicker.css';
 
-const DateField = ({ name, value, onChange }) => (
+const DateField = ({ name, value, onChange, onBlur }) => (
   <Field id={name} name={name}>
     {() => (
       <DatePicker
@@ -11,6 +11,7 @@ const DateField = ({ name, value, onChange }) => (
         onChange={onChange}
         name={name}
         dateFormat="dd/MM/yyyy"
+        onBlur={onBlur}
       />
     )}
   </Field>
